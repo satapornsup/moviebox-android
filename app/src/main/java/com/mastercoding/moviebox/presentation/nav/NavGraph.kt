@@ -8,6 +8,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.mastercoding.moviebox.presentation.detail.DetailRoute
 import com.mastercoding.moviebox.presentation.home.HomeRoute
 
 @Composable
@@ -34,9 +35,8 @@ fun NavGraph(
         composable(
             route = Route.MovieDetail.path,
             arguments = listOf(navArgument("id") { type = NavType.IntType }),
-        ) { backStackEntry ->
-            val id = backStackEntry.arguments?.getInt("id") ?: 0
-            Text("Detail $id — coming soon")
+        ) {
+            DetailRoute(onBack = { navController.popBackStack() })
         }
     }
 

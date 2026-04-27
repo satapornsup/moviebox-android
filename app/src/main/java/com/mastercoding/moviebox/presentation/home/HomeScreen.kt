@@ -22,7 +22,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import com.mastercoding.moviebox.domain.model.Movie
-import com.mastercoding.moviebox.presentation.home.components.ErrorView
+import com.mastercoding.moviebox.core.ui.ErrorView
 import com.mastercoding.moviebox.presentation.home.components.MovieList
 import com.mastercoding.moviebox.ui.theme.MovieBoxTheme
 
