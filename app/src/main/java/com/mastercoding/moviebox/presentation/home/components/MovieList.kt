@@ -47,8 +47,11 @@ fun MovieList(
         }
     }
 
-    LaunchedEffect(shouldLoadMore, endReached, isLoadingMore) {
-        Log.d("MovieList", "shouldLoadMore=$shouldLoadMore, endReached=$endReached, isLoadingMore=$isLoadingMore")
+    LaunchedEffect(shouldLoadMore, endReached, isLoadingMore, movies.size) {
+        Log.d(
+            "MovieList",
+            "shouldLoadMore=$shouldLoadMore, endReached=$endReached, isLoadingMore=$isLoadingMore, size=${movies.size}"
+        )
         if (shouldLoadMore && !endReached && !isLoadingMore) {
             Log.d("MovieList", "→ onLoadMore()")
             onLoadMore()
