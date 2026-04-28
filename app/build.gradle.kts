@@ -30,7 +30,11 @@ android {
 
         release {
             isMinifyEnabled = false
-            buildConfigField("String", "BASE_URL", "\"http://10.0.2.2:3000/api/\"")
+            buildConfigField(
+                "String",
+                "BASE_URL",
+                "\"https://moviebox-backend-g4sn.onrender.com/api/\""
+            )
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
