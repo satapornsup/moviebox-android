@@ -3,6 +3,7 @@ package com.mastercoding.moviebox.data.remote
 import com.mastercoding.moviebox.data.remote.dto.FavoriteDto
 import com.mastercoding.moviebox.data.remote.dto.MovieDto
 import com.mastercoding.moviebox.data.remote.dto.MovieListDto
+import com.mastercoding.moviebox.data.remote.dto.MoviePageDto
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
@@ -12,7 +13,10 @@ import retrofit2.http.Query
 
 interface MovieApi {
     @GET("movies/popular")
-    suspend fun popular(@Query("page") page: Int = 1): MovieListDto
+    suspend fun popular(
+        @Query("page") page: Int = 1,
+        @Query("limit") limit: Int = 20,
+    ): MoviePageDto
 
     @GET("movies/search")
     suspend fun search(@Query("q") query: String): MovieListDto

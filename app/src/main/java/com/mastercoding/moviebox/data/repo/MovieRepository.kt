@@ -1,8 +1,10 @@
 package com.mastercoding.moviebox.data.repo
 
 import com.mastercoding.moviebox.data.remote.MovieApi
+import com.mastercoding.moviebox.data.remote.dto.MoviePageDto
 import com.mastercoding.moviebox.data.remote.dto.toDomain
 import com.mastercoding.moviebox.domain.model.Movie
+import com.mastercoding.moviebox.domain.model.MoviePage
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -10,9 +12,8 @@ import javax.inject.Singleton
 class MovieRepository @Inject constructor(
     private val api: MovieApi
 ) {
-
-    suspend fun popular(): List<Movie> =
-        api.popular().results.map { it.toDomain() }
+    suspend fun popular(page: Int, limit: Int): MoviePage =
+        api.popular(page = page, limit = limit).toDomain()
 
     suspend fun search(query: String): List<Movie> =
         api.search(query).results.map { it.toDomain() }
