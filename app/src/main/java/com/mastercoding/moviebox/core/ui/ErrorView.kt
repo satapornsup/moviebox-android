@@ -1,4 +1,4 @@
-package com.mastercoding.moviebox.presentation.home.components
+package com.mastercoding.moviebox.core.ui
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer

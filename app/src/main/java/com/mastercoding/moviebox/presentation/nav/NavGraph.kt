@@ -1,6 +1,5 @@
 package com.mastercoding.moviebox.presentation.nav
 
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -8,6 +7,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.mastercoding.moviebox.presentation.detail.DetailRoute
+import com.mastercoding.moviebox.presentation.favorites.FavoritesRoute
 import com.mastercoding.moviebox.presentation.home.HomeRoute
 
 @Composable
@@ -28,15 +29,17 @@ fun NavGraph(
         }
 
         composable(Route.Favorites.path) {
-            Text("Favorites — coming soon")
+            FavoritesRoute(
+                onMovieClick = { id -> navController.navigate(Route.MovieDetail.create(id)) },
+                onBack = { navController.popBackStack() },
+            )
         }
 
         composable(
             route = Route.MovieDetail.path,
             arguments = listOf(navArgument("id") { type = NavType.IntType }),
-        ) { backStackEntry ->
-            val id = backStackEntry.arguments?.getInt("id") ?: 0
-            Text("Detail $id — coming soon")
+        ) {
+            DetailRoute(onBack = { navController.popBackStack() })
         }
     }
 

@@ -28,6 +28,7 @@ data class FavoriteDto(
     val movieId: Int,
     val title: String,
     val posterPath: String? = null,
+    val voteAverage: Double = 0.0,
     val createdAt: String? = null,
 )
 
@@ -50,5 +51,5 @@ fun FavoriteDto.toDomain() = Movie(
     posterPath = posterPath,
     backdropPath = null,
     releaseDate = null,
-    voteAverage = 0.0,
+    voteAverage = voteAverage,
 )
