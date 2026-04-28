@@ -45,6 +45,13 @@ android {
         compose = true
         buildConfig = true
     }
+    testOptions {
+        unitTests {
+            // Stub android.util.Log etc. with default returns so pure JVM
+            // unit tests don't crash on "Method ... not mocked" RuntimeException.
+            isReturnDefaultValues = true
+        }
+    }
 }
 
 dependencies {
