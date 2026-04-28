@@ -12,6 +12,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Module
@@ -35,6 +36,13 @@ object NetworkModule {
             }
         }
         return OkHttpClient.Builder()
+            // Render free tier sleeps after 15 min idle; cold start ~30s.
+            // Default OkHttp timeouts are 10s for connect/read/write — too
+            // tight for the first request after wake. Bump them so the app
+            // can survive the spin-up instead of throwing IOException.
+            .connectTimeout(30, TimeUnit.SECONDS)
+            .readTimeout(60, TimeUnit.SECONDS)
+            .writeTimeout(30, TimeUnit.SECONDS)
             .addInterceptor(logging)
             .addInterceptor { chain ->
                 val req = chain.request().newBuilder()

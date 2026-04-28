@@ -14,10 +14,10 @@ also wrote.
 ## Screenshots
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/5604fba8-25fa-49c0-8648-7712fde5f6d4"      alt="Home — paginated popular list"  width="22%" />
-  <img src="https://github.com/user-attachments/assets/c7ee96be-fca8-4b2e-b518-d9133e5e6cf8"    alt="Search — debounced 300ms"        width="22%" />
-  <img  src="https://github.com/user-attachments/assets/0bfc7930-c83f-46a8-bd4f-f74d2ab91513"   alt="Detail — favourite toggle"       width="22%" />
-  <img src="https://github.com/user-attachments/assets/8649d067-9069-4b39-9356-b41bb356e5f1"  alt="Favourites"                       width="22%" />
+  <img src="https://github.com/user-attachments/assets/5604fba8-25fa-49c0-8648-7712fde5f6d4" alt="Home — paginated popular list" width="22%" />
+  <img src="https://github.com/user-attachments/assets/c7ee96be-fca8-4b2e-b518-d9133e5e6cf8" alt="Search — debounced 300ms" width="22%" />
+  <img src="https://github.com/user-attachments/assets/0bfc7930-c83f-46a8-bd4f-f74d2ab91513" alt="Detail — favourite toggle" width="22%" />
+  <img src="https://github.com/user-attachments/assets/8649d067-9069-4b39-9356-b41bb356e5f1" alt="Favourites" width="22%" />
 </p>
 
 ## Stack
@@ -92,10 +92,16 @@ cd ../moviebox-android
 # Open in Android Studio → Run on emulator
 ```
 
-`BASE_URL` is wired through `BuildConfig`. The default in `build.gradle.kts` is
-`http://10.0.2.2:3000/api/` — that's the magic loopback the Android emulator
-uses to reach `localhost:3000` on the host. Swap it for your Render URL when
-deploying.
+`BASE_URL` is wired through `BuildConfig`:
+
+- **debug** → `http://10.0.2.2:3000/api/` (emulator loopback to host's
+  `localhost:3000`, for use with `npm run dev`)
+- **release** → `https://moviebox-backend-g4sn.onrender.com/api/`
+  (deployed Render instance)
+
+> The Render free tier sleeps after 15 min idle; the first request after
+> wake takes ~30s to spin up. OkHttp connect/read timeouts are bumped to
+> 30s/60s so the app survives the cold start instead of throwing.
 
 User identity is stubbed via an `x-user-id: demo-user` header injected by an
 OkHttp interceptor — kept simple on purpose so the app can ship without
@@ -152,7 +158,8 @@ CI runs `lint`, `testDebugUnitTest`, and `assembleDebug` on every push to
 
 ## Backend
 
-The API is a separate repo: [`moviebox-backend`](../moviebox-backend) — Express
+The API is a separate repo: [`moviebox-backend`](../moviebox-backend) —
+Express + TypeScript + Prisma 5 + MongoDB Atlas, deployed on Render. See its
+README for the seed script, endpoint shape, and deploy notes.
 
-+ TypeScript + Prisma 5 + MongoDB Atlas. See its README for the seed script,
-  endpoint shape, and Render deploy notes.
+Live API: <https://moviebox-backend-g4sn.onrender.com/api/movies/popular?limit=3>
