@@ -20,6 +20,7 @@ class FavoriteRepository @Inject constructor(
                 movieId = movie.id,
                 title = movie.title,
                 posterPath = movie.posterPath,
+                voteAverage = movie.voteAverage,
             )
         )
     }
