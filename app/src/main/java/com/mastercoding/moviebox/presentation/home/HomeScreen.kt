@@ -74,7 +74,13 @@ fun HomeScreen(
                     state.movies.isEmpty() ->
                         Text("No results", Modifier.align(Alignment.Center))
 
-                    else -> MovieList(state.movies, onMovieClick)
+                    else -> MovieList(
+                        movies = state.movies,
+                        isLoadingMore = state.isLoadingMore,
+                        endReached = state.endReached,
+                        onClick = onMovieClick,
+                        onLoadMore = { onEvent(HomeUiEvent.LoadMore) },
+                    )
                 }
             }
         }
